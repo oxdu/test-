@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Ordering Menu</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .menu-header {
+            background-color: #FF8C3B;
+            padding: 20px 0;
+            color: white;
+            position: relative;
+        }
+
+        .arabic-text {
+            font-size: 2rem;
+            color: white;
+            text-align: center;
+        }
+
+        .category-icons {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+        }
+
+        .category-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .category-icon.active {
+            transform: scale(1.1);
+            box-shadow: 0 0 10px rgba(255, 140, 59, 0.5);
+        }
+
+        .category-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .category-label {
+            text-align: center;
+            margin-top: 5px;
+            color: #666;
+        }
+
+        .menu-item {
+            border: 1px solid #eee;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            background: white;
+            transition: transform 0.3s;
+        }
+
+        .menu-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .menu-item img {
+            width: 100%;
+            border-radius: 8px;
+        }
+
+        .price {
+            color: #FF8C3B;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .calories {
+            background: #f5f5f5;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        .add-to-bag {
+            background-color: #FF8C3B;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .add-to-bag:hover {
+            background-color: #e67e34;
+        }
+
+        .new-badge {
+            background-color: red;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+        }
+
+        .order-type-select {
+            padding: 10px;
+            margin: 15px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            width: 100%;
+            color: #666;
+        }
+
+        .category-content {
+            display: none;
+        }
+
+        .category-content.active {
+            display: block;
+        }
+        .banner-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            background-color: #FF8C3B;
+        }
+
+        /* .banner-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            background-color: #FF8C3B;
+        }
+
+        .menu-header {
+            background-color: #FF8C3B;
+            padding: 10px 0;
+            color: white;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .category-icons {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+            position: sticky;
+            top: 50px;
+            background: white;
+            z-index: 999;
+            padding: 10px 0;
+        }
+
+        .category-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .category-icon.active {
+            transform: scale(1.1);
+            box-shadow: 0 0 10px rgba(255, 140, 59, 0.5);
+        }
+
+        .menu-item {
+            border: 1px solid #eee;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            background: white;
+            transition: transform 0.3s;
+        }
+
+        .category-content {
+            display: none;
+        }
+
+        .category-content.active {
+            display: block;
+        } */
+
+        .banner-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .menu-header {
+            background-color: #FF8C3B;
+            padding: 10px 0;
+            color: white;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .category-icons {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+            background: white;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .category-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            opacity: 0.7;
+        }
+
+        .category-icon.active {
+            transform: scale(1.1);
+            opacity: 1;
+            box-shadow: 0 0 10px rgba(255, 140, 59, 0.5);
+        }
+
+        .category-label {
+            text-align: center;
+            margin-top: 5px;
+            color: #666;
+        }
+
+        .menu-item {
+            border: 1px solid #eee;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            background: white;
+            transition: transform 0.3s;
+        }
+
+        .category-content {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .category-content.active {
+            display: block;
+            opacity: 1;
+        }
+
+        .add-to-bag {
+            background-color: #FF8C3B;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .add-to-bag:hover {
+            background-color: #e67e34;
+        }
+
+        .observer-trigger {
+            /* height: 20px; */
+            width: 100%;
+        }
+        .category-content {
+            display: none;
+        }
+        
+        .category-content.active {
+            display: block;
+        }
+        
+        .category-icon {
+            opacity: 0.6;
+            transition: all 0.3s ease;
+        }
+        
+        .category-icon.active {
+            opacity: 1;
+            transform: scale(1.1);
+            border: 3px solid #FF8C3B;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container-fluid p-0">
+        <!-- Header -->
+        <div class="menu-header">
+            <div class="container">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="menu-toggle">☰</div>
+                    <div class="menu-title">MENU</div>
+                
+                </div>
+               
+
+               
+            </div>
+        </div>
+        <!-- <img src="/images/Satel_Snack.jpg" alt="Restaurant Banner" class="banner-image"> -->
+
+      
+
+        <!-- Order Type Selector -->
+        <div class="container mt-3">
+            <select class="order-type-select form-select mb-3" >
+                <option value="">Please tap here to pick an order type</option>
+                <option value="delivery">Delivery</option>
+                <option value="pickup">Pickup</option>
+            </select>
+
+            <!-- Category Icons -->
+            <div class="category-icons" id="category-nav">
+                <div class="category-item" data-category="our-new">
+                    <div class="category-icon active">
+                        <img src="images/Satel_Snack.jpg" alt="Our new">
+                    </div>
+                    <div class="category-label">Our new</div>
+                </div>
+                <div class="category-item" data-category="our-offer">
+                    <div class="category-icon">
+                        <img src="images/163938333961b7012bd567a_burger-arabia-meal-wb-1641454449348.webp" alt="Our Offer">
+                    </div>
+                    <div class="category-label">Our Offer</div>
+                </div>
+                <div class="category-item" data-category="main-meals">
+                    <div class="category-icon">
+                        <img src="images/Satel_Snack.jpg" alt="Main Meals">
+                    </div>
+                    <div class="category-label">Main Meals</div>
+                </div>
+                <div class="category-item" data-category="garmasha">
+                    <div class="category-icon">
+                        <img src="images/163938333961b7012bd567a_burger-arabia-meal-wb-1641454449348.webp" alt="Garmasha">
+                    </div>
+                    <div class="category-label">Garmasha</div>
+                </div>
+            </div>
+
+            <!-- Menu Items by Category -->
+            <!-- Our New Category -->
+        <div id="menu-categories">
+            <div id="our-new" class="category-content active">
+                <div class="observer-trigger" data-category="our-new"></div>
+                <div class="menu-items mt-4">
+                    <div class="menu-item position-relative">
+                        <span class="new-badge">جديد</span>
+                        <div class="row">
+                            <div class="col-4">
+                                <img src="images/Satel_Snack.jpg" alt="Muhammas Sandwich" class="'img-fluid">
+                            </div>
+                            <div class="col-8">
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <h5>MUHAMMAS SANDWICH</h5>
+                                    <span class="calories">426 cal</span>
+                                </div>
+                                <p class="text-muted">Our new Muhammas sandwich crispy thin bread filled with oven grilled marinated chicken breast...</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="price">11 SAR</div>
+                                    <button class="add-to-bag">ADD TO BAG</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-item position-relative">
+                        <span class="new-badge">جديد</span>
+                        <div class="row">
+                            <div class="col-4">
+                                <img src="images/163938401561b703cfd96cf_kabab-meal-1641454254432.webp" alt="Tikka Sandwich" class="img-fluid">
+                            </div>
+                            <div class="col-8">
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <h5>Tikka sandwich meal</h5>
+                                    <span class="calories">1306 cal</span>
+                                </div>
+                                <p class="text-muted">Our crispy tenders with lettuce and fries topped with our special tikka not too spicy sauce wrap...</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="price">23 SAR</div>
+                                    <button class="add-to-bag">ADD TO BAG</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="observer-trigger" data-category="our-new-end"></div>
+            </div>
+
+            <!-- Our Offer Category -->
+            <div id="our-offer" class="category-content">
+                <div class="observer-trigger" data-category="our-offer"></div>
+                <div class="menu-items mt-4">
+                    <div class="menu-item">
+                        <div class="row">
+                            <div class="col-4">
+                                <img src="images/163938401561b703cfd96cf_kabab-meal-1641454254432.webp" alt="Tikka Sandwich" class="img-fluid">
+                            </div>
+                            <div class="col-8">
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <h5>Family Meal Deal</h5>
+                                    <span class="calories">2500 cal</span>
+                                </div>
+                                <p class="text-muted">4 sandwiches of your choice with large fries and 2L drink. Perfect for family gathering!</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="price">89 SAR</div>
+                                    <button class="add-to-bag">ADD TO BAG</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="row">
+                            <div class="col-4">
+                                <img src="images/163938401561b703cfd96cf_kabab-meal-1641454254432.webp" alt="Tikka Sandwich" class="img-fluid">
+                            </div>
+                            <div class="col-8">
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <h5>Student Special</h5>
+                                    <span class="calories">850 cal</span>
+                                </div>
+                                <p class="text-muted">Any sandwich with medium fries and drink at special student price!</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="price">15 SAR</div>
+                                    <button class="add-to-bag">ADD TO BAG</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="row">
+                            <div class="col-4">
+                                <img src="images/163938401561b703cfd96cf_kabab-meal-1641454254432.webp" alt="Tikka Sandwich" class="img-fluid">
+                            </div>
+                            <div class="col-8">
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <h5>Student Special</h5>
+                                    <span class="calories">850 cal</span>
+                                </div>
+                                <p class="text-muted">Any sandwich with medium fries and drink at special student price!</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="price">15 SAR</div>
+                                    <button class="add-to-bag">ADD TO BAG</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="observer-trigger" data-category="our-offer-end"></div>
+            </div>
+
+            <div id="main-meals" class="category-content">
+                <div class="observer-trigger" data-category="main-meals"></div>
+                <div class="menu-items mt-4">
+                    <div class="menu-item">
+                        <div class="row">
+                            <div class="col-4">
+                                <img src="images/163938401561b703cfd96cf_kabab-meal-1641454254432.webp" alt="Tikka Sandwich" class="img-fluid">
+                            </div>
+                            <div class="col-8">
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <h5>Family Meal Deal</h5>
+                                    <span class="calories">2500 cal</span>
+                                </div>
+                                <p class="text-muted">4 sandwiches of your choice with large fries and 2L drink. Perfect for family gathering!</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="price">89 SAR</div>
+                                    <button class="add-to-bag">ADD TO BAG</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="row">
+                            <div class="col-4">
+                                <img src="images/163938401561b703cfd96cf_kabab-meal-1641454254432.webp" alt="Tikka Sandwich" class="img-fluid">
+                            </div>
+                            <div class="col-8">
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <h5>Student Special</h5>
+                                    <span class="calories">850 cal</span>
+                                </div>
+                                <p class="text-muted">Any sandwich with medium fries and drink at special student price!</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="price">15 SAR</div>
+                                    <button class="add-to-bag">ADD TO BAG</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="row">
+                            <div class="col-4">
+                                <img src="images/163938401561b703cfd96cf_kabab-meal-1641454254432.webp" alt="Tikka Sandwich" class="img-fluid">
+                            </div>
+                            <div class="col-8">
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <h5>Student Special</h5>
+                                    <span class="calories">850 cal</span>
+                                </div>
+                                <p class="text-muted">Any sandwich with medium fries and drink at special student price!</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="price">15 SAR</div>
+                                    <button class="add-to-bag">ADD TO BAG</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="observer-trigger" data-category="main-meals-end"></div>
+
+            </div>
+
+            <div id="garmasha" class="category-content">
+                <div class="observer-trigger" data-category="garmasha"></div>
+                <div class="menu-items mt-4">
+                    <div class="menu-item">
+                        <div class="row">
+                            <div class="col-4">
+                                <img src="images/163938401561b703cfd96cf_kabab-meal-1641454254432.webp" alt="Tikka Sandwich" class="img-fluid">
+                            </div>
+                            <div class="col-8">
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <h5>Family Meal Deal</h5>
+                                    <span class="calories">2500 cal</span>
+                                </div>
+                                <p class="text-muted">4 sandwiches of your choice with large fries and 2L drink. Perfect for family gathering!</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="price">89 SAR</div>
+                                    <button class="add-to-bag">ADD TO BAG</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-item">
+                        <div class="row">
+                            <div class="col-4">
+                                <img src="images/163938401561b703cfd96cf_kabab-meal-1641454254432.webp" alt="Tikka Sandwich" class="img-fluid">
+                            </div>
+                            <div class="col-8">
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <h5>Student Special</h5>
+                                    <span class="calories">850 cal</span>
+                                </div>
+                                <p class="text-muted">Any sandwich with medium fries and drink at special student price!</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="price">15 SAR</div>
+                                    <button class="add-to-bag">ADD TO BAG</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="observer-trigger" data-category="garmasha-end"></div>
+            </div>
+        </div>
+
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // document.addEventListener('DOMContentLoaded', function() {
+        //     const categories = Array.from(document.querySelectorAll('.category-item'));
+        //     const categoryContents = document.querySelectorAll('.category-content');
+        //     let currentCategoryIndex = 0;
+
+        //     // Function to switch category
+        //     function switchCategory(index, smooth = true) {
+        //         // Remove active classes
+        //         document.querySelectorAll('.category-icon').forEach(icon => {
+        //             icon.classList.remove('active');
+        //         });
+        //         categoryContents.forEach(content => {
+        //             content.classList.remove('active');
+        //         });
+
+        //         // Add active classes to new category
+        //         const targetCategory = categories[index];
+        //         targetCategory.querySelector('.category-icon').classList.add('active');
+                
+        //         const categoryId = targetCategory.dataset.category;
+        //         const targetContent = document.getElementById(categoryId);
+        //         targetContent.classList.add('active');
+
+        //         // Update current index
+        //         currentCategoryIndex = index;
+
+        //         // Scroll category into view if needed
+        //         if (smooth) {
+        //             targetCategory.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        //         }
+        //     }
+
+        //     // Handle category click
+        //     categories.forEach((category, index) => {
+        //         category.addEventListener('click', () => {
+        //             switchCategory(index);
+        //         });
+        //     });
+
+        //     // Intersection Observer for category switching
+        //     const observerOptions = {
+        //         root: null,
+        //         rootMargin: '0px',
+        //         threshold: 1.0
+        //     };
+
+        //     const observerCallback = (entries) => {
+        //         entries.forEach(entry => {
+        //             if (entry.isIntersecting) {
+        //                 const category = entry.target.dataset.category;
+        //                 if (category.endsWith('-end') && currentCategoryIndex < categories.length - 1) {
+        //                     // Switch to next category
+        //                     switchCategory(currentCategoryIndex + 1);
+        //                 }
+        //             }
+        //         });
+        //     };
+
+        //     const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+        //     // Observe all trigger elements
+        //     document.querySelectorAll('.observer-trigger').forEach(trigger => {
+        //         observer.observe(trigger);
+        //     });
+
+
+        document.addEventListener('DOMContentLoaded', function () {
+    const categories = Array.from(document.querySelectorAll('.category-item'));
+    const categoryContents = document.querySelectorAll('.category-content');
+    let currentCategoryIndex = 0;
+
+    // Function to switch category
+    function switchCategory(index, smooth = true) {
+        if (index < 0 || index >= categories.length) return; // Prevent out-of-bounds
+
+        // Remove active classes
+        document.querySelectorAll('.category-icon').forEach(icon => {
+            icon.classList.remove('active');
+        });
+        categoryContents.forEach(content => {
+            content.classList.remove('active');
+        });
+
+        // Add active classes to new category
+        const targetCategory = categories[index];
+        targetCategory.querySelector('.category-icon').classList.add('active');
+
+        const categoryId = targetCategory.dataset.category;
+        const targetContent = document.getElementById(categoryId);
+        targetContent.classList.add('active');
+
+        // Update current index
+        currentCategoryIndex = index;
+
+        // Scroll category into view if needed
+        if (smooth) {
+            targetCategory.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+    }
+
+    // Handle category click
+    categories.forEach((category, index) => {
+        category.addEventListener('click', () => {
+            switchCategory(index);
+        });
+    });
+
+    // Intersection Observer for category switching
+    const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 1.0
+    };
+
+    const observerCallback = (entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const category = entry.target.dataset.category;
+                if (category.endsWith('-end') && currentCategoryIndex < categories.length - 1) {
+                    // Move to next category when the end of the current one is reached
+                    switchCategory(currentCategoryIndex + 1);
+                }
+            }
+        });
+    };
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+    // Observe all end triggers
+    document.querySelectorAll('.observer-trigger').forEach(trigger => {
+        observer.observe(trigger);
+    });
+
+
+            // Add to bag functionality
+            document.querySelectorAll('.add-to-bag').forEach(button => {
+                button.addEventListener('click', function() {
+                    const item = this.closest('.menu-item');
+                    const itemName = item.querySelector('h5').textContent;
+                    alert(`${itemName} added to bag!`);
+                });
+            });
+        });
+    </script>
+  
+</body>
+</html>
