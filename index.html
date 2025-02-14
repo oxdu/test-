@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Menu</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            padding-top: 340px; /* Adjust based on header height */
+        }
+        
+        .sticky-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: white;
+        }
+        
+        .navbar {
+            background: #8B4513;
+            color: white;
+        }
+        
+        .top-banner {
+            background: #ff7700;
+            position: relative;
+            overflow: hidden;
+            padding: 20px 0;
+        }
+        
+        .stadium-lights {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(0,0,0,0) 70%);
+        }
+        
+        .menu-tabs {
+            background: white;
+            border-radius: 0 0 15px 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .order-type-select {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 10px 0;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+     
+        
+        .category-item {
+            text-align: center;
+            padding: 15px;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+        
+        .category-item.active {
+            border-bottom: 3px solid #ff7700;
+            color: #ff7700;
+        }
+        
+        .category-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            margin-bottom: 10px;
+            overflow: hidden;
+        }
+        
+        .food-item {
+            background: white;
+            border-radius: 7px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+        
+        
+        .food-image {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+        }
+        
+        .add-to-bag {
+            background: #ff7700;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 8px;
+        }
+        
+        .calories {
+            color: #888;
+            font-size: 0.9rem;
+        }
+        
+        .category-section {
+            scroll-margin-top: 340px; /* Same as body padding-top */
+        }
+        @media screen and (max-width:576px) {
+            .food-item h6{
+                font-size: 14px;
+            }
+            .food-item p{
+                font-size: 12px;
+            }
+            .food-item .fw-bold{
+                font-size: 14px;
+            }
+            .add-to-bag {
+         
+            padding: 4px 18px;
+            border-radius: 8px;
+            font-size: 12px;
+        }
+        .cat-name{
+            font-size: 12px;
+        }
+        
+        }
+    </style>
+</head>
+<body class="bg-light">
+    <div class="sticky-header">
+        <!-- Navbar -->
+        <nav class="navbar">
+            <div class="container">
+                <button class="btn text-white">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <h4 class="mb-0 text-white">MENU</h4>
+                <div></div>
+            </div>
+        </nav>
+
+        <!-- Banner -->
+        <div class="top-banner">
+            <div class="stadium-lights"></div>
+            <div class="container text-white">
+                <h2 class="text-center mb-0">عرض مب</h2>
+                <p class="text-center mb-0">TJ7 استخدم كود</p>
+            </div>
+        </div>
+
+        <!-- Order Type Selector -->
+        <div class="container">
+            <div class="order-type-select d-flex justify-content-between align-items-center">
+                <span>Please tap here to select an order type</span>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+        </div>
+
+        <!-- Category Tabs -->
+        <div class="container">
+            <div class="menu-tabs">
+                <div class="row g-0">
+                    <div class="col-3">
+                        <div class="category-item active" data-category="our-new">
+                            <img src="images/Tikka_Sandawisht_Meal.webp" class="category-icon" alt="Our new">
+                            <div class="cat-name">Our new</div>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="category-item" data-category="our-offer">
+                            <img src="images/ouroffer.jpg" class="category-icon" alt="Our Offer">
+                            <div class="cat-name">Our Offer</div>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="category-item" data-category="main-meals">
+                            <img src="images/mainmeal.webp" class="category-icon" alt="Main Meals">
+                            <div class="cat-name">Main Meals</div>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="category-item" data-category="garmasha">
+                            <img src="images/Muhammas.webp" class="category-icon" alt="Garmasha">
+                            <div class="cat-name">Garmasha</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Menu Items -->
+    <div class="container">
+        <!-- Our New Section -->
+        <section id="our-new" class="category-section">
+            <h5 class="mb-4">Our new</h5>
+            <div class="food-item p-3 d-flex justify-content-between align-items-center">
+                <div class="d-flex gap-3">
+                    <img src="images/Muhammas.webp" class="food-image" alt="Muhammas">
+                    <div>
+                        <h6 class="product_name">MUHAMMAS SANDWICH</h6>
+                        <p class="text-muted mb-0 small">Our new Muhammas sandwich crispy thin bread...</p>
+                        <div class="mt-2">
+                            <span class="fw-bold">11 SAR</span>
+                            <span class="calories ms-2">(426 cal)</span>
+                        </div>
+                    </div>
+                </div>
+                <button class="add-to-bag">ADD TO BAG</button>
+            </div>
+
+            <div class="food-item p-3 d-flex justify-content-between align-items-center mt-3">
+                <div class="d-flex gap-3">
+                    <img src="images/chickenmeal.webp" class="food-image" alt="Tikka">
+                    <div>
+                        <div class="d-flex align-items-center gap-2">
+                            <h6>Chicken meal</h6>
+                            <!-- <span class="new-badge">جديد</span> -->
+                        </div>
+                        <p class="text-muted mb-0 small">Our crispy tenders with lettuce and </p>
+                        <div class="mt-2">
+                            <span class="fw-bold">23 SAR</span>
+                            <span class="calories ms-2">(1306 cal)</span>
+                        </div>
+                    </div>
+                </div>
+                <button class="add-to-bag">ADD TO BAG</button>
+            </div>
+
+            <div class="food-item p-3 d-flex justify-content-between align-items-center mt-3">
+                <div class="d-flex gap-3">
+                    <img src="images/Satel_Snack.jpg" class="food-image" alt="Tikka">
+                    <div>
+                        <div class="d-flex align-items-center gap-2">
+                            <h6>Satel Snack</h6>
+                         
+                        </div>
+                        <p class="text-muted mb-0 small">Our crispy tenders with lettuce and </p>
+                        <div class="mt-2">
+                            <span class="fw-bold">23 SAR</span>
+                            <span class="calories ms-2">(1306 cal)</span>
+                        </div>
+                    </div>
+                </div>
+                <button class="add-to-bag">ADD TO BAG</button>
+            </div>
+
+            <div class="food-item p-3 d-flex justify-content-between align-items-center mt-3">
+                <div class="d-flex gap-3">
+                    <img src="images/Tandoori.webp" class="food-image" alt="Tikka">
+                    <div>
+                        <div class="d-flex align-items-center gap-2">
+                            <h6>Tandoori</h6>
+                         
+                        </div>
+                        <p class="text-muted mb-0 small">Our crispy tenders with lettuce </p>
+                        <div class="mt-2">
+                            <span class="fw-bold">23 SAR</span>
+                            <span class="calories ms-2">(1306 cal)</span>
+                        </div>
+                    </div>
+                </div>
+                <button class="add-to-bag"><a href="cart.html" style='color:white;text-decoration: none;'>ADD TO BAG</a></button>
+            </div>
+
+            
+           
+            
+        </section>
+
+        <!-- Our Offer Section -->
+        <section id="our-offer" class="category-section">
+            <h5 class="mb-4">Our Offer</h5>
+            <div class="food-item p-3 d-flex justify-content-between align-items-center">
+                <div class="d-flex gap-3">
+                    <img src="images/broastmeal.webp" class="food-image" alt="Bashka">
+                    <div>
+                        <h6>Bashka tenders</h6>
+                        <p class="text-muted mb-0 small">20 pieces chicken tenders </p>
+                        <div class="mt-2">
+                            <span class="fw-bold">48 SAR</span>
+                            <span class="calories ms-2">(1631 cal)</span>
+                        </div>
+                    </div>
+                </div>
+                <button class="add-to-bag">ADD TO BAG</button>
+            </div>
+            <div class="food-item p-3 d-flex justify-content-between align-items-center mt-3">
+                <div class="d-flex gap-3">
+                    <img src="images/Satel_Snack.jpg" class="food-image" alt="Tikka">
+                    <div>
+                        <div class="d-flex align-items-center gap-2">
+                            <h6>Satel Snack</h6>
+                         
+                        </div>
+                        <p class="text-muted mb-0 small">Our crispy tenders with lettuce and </p>
+                        <div class="mt-2">
+                            <span class="fw-bold">23 SAR</span>
+                            <span class="calories ms-2">(1306 cal)</span>
+                        </div>
+                    </div>
+                </div>
+                <button class="add-to-bag">ADD TO BAG</button>
+            </div>
+            <div class="food-item p-3 d-flex justify-content-between align-items-center mt-3">
+                <div class="d-flex gap-3">
+                    <img src="images/Tandoori.webp" class="food-image" alt="Tikka">
+                    <div>
+                        <div class="d-flex align-items-center gap-2">
+                            <h6>Tandoori</h6>
+                         
+                        </div>
+                        <p class="text-muted mb-0 small">Our crispy tenders with lettuce and </p>
+                        <div class="mt-2">
+                            <span class="fw-bold">23 SAR</span>
+                            <span class="calories ms-2">(1306 cal)</span>
+                        </div>
+                    </div>
+                </div>
+                <button class="add-to-bag">ADD TO BAG</button>
+            </div>
+        </section>
+
+        <section id="main-meals" class="category-section">
+            <h5 class="mb-4">Main Meals</h5>
+            <div class="food-item p-3 d-flex justify-content-between align-items-center">
+                <div class="d-flex gap-3">
+                    <img src="images/broastmeal.webp" class="food-image" alt="Bashka">
+                    <div>
+                        <h6>Broast Meal</h6>
+                        <p class="text-muted mb-0 small">20 pieces chicken tenders </p>
+                        <div class="mt-2">
+                            <span class="fw-bold">48 SAR</span>
+                            <span class="calories ms-2">(1631 cal)</span>
+                        </div>
+                    </div>
+                </div>
+                <button class="add-to-bag">ADD TO BAG</button>
+            </div>
+        </section>
+
+        <section id="garmasha" class="category-section">
+            <h5 class="mb-4">Garmasha</h5>
+            <div class="food-item p-3 d-flex justify-content-between align-items-center">
+                <div class="d-flex gap-3">
+                    <img src="images/Tikka_Sandawisht_Meal.webp" class="food-image" alt="Bashka">
+                    <div>
+                        <h6>Tikka Sandwich</h6>
+                        <p class="text-muted mb-0 small">20 pieces chicken tenders </p>
+                        <div class="mt-2">
+                            <span class="fw-bold">48 SAR</span>
+                            <span class="calories ms-2">(1631 cal)</span>
+                        </div>
+                    </div>
+                </div>
+                <button class="add-to-bag">ADD TO BAG</button>
+            </div>
+        </section>
+
+        <!-- Continue with other sections... -->
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const sections = document.querySelectorAll('.category-section');
+            const categoryItems = document.querySelectorAll('.category-item');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const categoryId = entry.target.id;
+                        categoryItems.forEach(item => {
+                            item.classList.remove('active');
+                        });
+                        const activeItem = document.querySelector(`.category-item[data-category="${categoryId}"]`);
+                        if (activeItem) {
+                            activeItem.classList.add('active');
+                        }
+                    }
+                });
+            }, {
+                threshold: 0.5,
+                rootMargin: '-140px 0px 0px 0px' // Adjusted for sticky header height
+            });
+            
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+            
+            categoryItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    const categoryId = item.dataset.category;
+                    const section = document.getElementById(categoryId);
+                    section.scrollIntoView({ behavior: 'smooth' });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
